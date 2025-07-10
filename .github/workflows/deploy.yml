@@ -39,7 +39,7 @@ jobs:
           node-version: 20        # or the version you use locally
 
       # 3️⃣  Install deps & build
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm install
       - run: pnpm run build       # outputs to dist/
 
       # 4️⃣  GitHub Pages deployment
