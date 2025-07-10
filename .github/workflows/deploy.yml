@@ -1,14 +1,15 @@
+# .github/workflows/deploy.yml
 name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]     # rebuild every time you push to main
-  workflow_dispatch:     # manual “Run workflow” button
+    branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write        # needed for deploy-pages action
+  pages: write          # for deploy-pages
+  id-token: write
 
 concurrency:
   group: 'pages'
@@ -16,31 +17,36 @@ concurrency:
 
 jobs:
   deploy:
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+      url: ${{ steps.deploy.outputs.page_url }}
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Node
+      # 1️⃣  Install pnpm CLI (adds it to PATH)
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9              # or 10, match your local version
+          run_install: false      # we'll install deps in the next step
+
+      # 2️⃣  Install the Node runtime & enable pnpm caching
+      - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: lts/*       # any LTS works
-          cache: 'pnpm'            # or 'npm'/'yarn'
+          node-version: 20        # or the version you use locally
+          cache: 'pnpm'
 
+      # 3️⃣  Install deps & build
       - run: pnpm install --frozen-lockfile
-      - run: pnpm run build         # produces dist/
+      - run: pnpm run build       # outputs to dist/
 
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload static site
-        uses: actions/upload-pages-artifact@v3
+      # 4️⃣  GitHub Pages deployment
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
-
-      - name: Deploy
-        id: deployment
+          path: ./dist
+      - id: deploy
         uses: actions/deploy-pages@v4
