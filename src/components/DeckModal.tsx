@@ -29,8 +29,8 @@ export function DeckModal() {
   const totalCount = state.deck.length;
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+    <div className="fixed inset-0 bg-black/50 flex items-start sm:items-center justify-center p-2 sm:p-4 z-50 overflow-y-auto">
+      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl max-w-4xl w-full my-4 sm:my-0 sm:max-h-[90vh] max-h-[calc(100vh-2rem)] overflow-hidden flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
           <div>
@@ -50,7 +50,7 @@ export function DeckModal() {
         </div>
 
         {/* Content */}
-        <div className="p-6 overflow-y-auto max-h-[calc(90vh-8rem)]">
+        <div className="p-4 sm:p-6 overflow-y-auto flex-1 min-h-0">
           {filteredDeck.length === 0 ? (
             <div className="text-center py-12">
               <Search className="h-12 w-12 text-gray-400 mx-auto mb-4" />

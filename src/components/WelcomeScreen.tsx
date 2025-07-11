@@ -185,10 +185,10 @@ family,familia`;
 
       {/* CSV Text Input Modal */}
       {showTextInput && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-hidden">
+        <div className="fixed inset-0 bg-black/50 flex items-start sm:items-center justify-center p-2 sm:p-4 z-50 overflow-y-auto">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl max-w-2xl w-full my-4 sm:my-0 sm:max-h-[90vh] max-h-[calc(100vh-2rem)] overflow-hidden flex flex-col">
             {/* Header */}
-            <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+            <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
               <div>
                 <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
                   Paste CSV Text
@@ -209,7 +209,7 @@ family,familia`;
             </div>
 
             {/* Content */}
-            <div className="p-6">
+            <div className="p-4 sm:p-6 overflow-y-auto flex-1 min-h-0">
               <div className="mb-4">
                 <label htmlFor="csv-text" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   CSV Data
@@ -219,7 +219,7 @@ family,familia`;
                   value={csvText}
                   onChange={(e) => setCsvText(e.target.value)}
                   placeholder="lang1,lang2&#10;house,casa&#10;cat,gato&#10;book,libro"
-                  className="w-full h-64 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none font-mono text-sm"
+                  className="w-full h-48 sm:h-64 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none font-mono text-sm"
                 />
               </div>
 
@@ -235,7 +235,7 @@ family,familia`;
                 </ul>
               </div>
 
-              <div className="flex justify-end space-x-3">
+              <div className="flex justify-end space-x-3 pt-4 border-t border-gray-200 dark:border-gray-700 mt-4">
                 <button
                   onClick={() => {
                     setShowTextInput(false);
